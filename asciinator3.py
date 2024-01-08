@@ -13,35 +13,36 @@ def convert_frame_to_colored_ascii(frame):
     colored_ascii_frame = ""
     for row in resized_frame:
         for pixel in row:
-            intensity = sum(pixel[:3]) / 3.0 / 255.0  # Average intensity of RGB values
+            intensity = sum(pixel[:3]) / 3.0 / 255.0
             colored_ascii_frame += get_colored_ascii_char(intensity, pixel)
         colored_ascii_frame += "\n"
 
     return colored_ascii_frame
 
 def get_colored_ascii_char(intensity, color):
-    ascii_chars = "@§&%#*+=•-:. "  # Specified set of characters
+    ascii_chars = "@§&%#*+=•-:. "
     color_code = determine_color_code(color)
     return f"\033[38;2;{color[2]};{color[1]};{color[0]}m{ascii_chars[int(intensity * (len(ascii_chars) - 1))]}"
 
 def determine_color_code(color):
     grayscale_value = sum(color) / 3.0
     color_codes = [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15  # ANSI color codes for more colors
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
     ]
-    # Map the grayscale value to the color codes
-    index = int(grayscale_value / 21.33)  # Divide by approximately 21.33 for more color variety
+    index = int(grayscale_value / 21.33)
     return color_codes[index]
 
 def play_video(video_path, loop=False, jump_to_frame=None):
     video = cv2.VideoCapture(video_path)
-    paused = False  # Variable to track whether the video is paused
+    paused = False
 
     try:
         total_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
 
         if jump_to_frame is not None and 0 <= jump_to_frame < total_frames:
             video.set(cv2.CAP_PROP_POS_FRAMES, jump_to_frame)
+
+        frame_counter = jump_to_frame if jump_to_frame is not None else 0
 
         while True:
             if not paused:
@@ -50,24 +51,25 @@ def play_video(video_path, loop=False, jump_to_frame=None):
                     if loop:
                         video.release()
                         video = cv2.VideoCapture(video_path)
+                        frame_counter = 0  # Reset frame counter when looping
                         continue
                     else:
                         break
 
-                # Print the colored ASCII art frame with carriage return
                 colored_ascii_frame = convert_frame_to_colored_ascii(frame)
                 sys.stdout.write(colored_ascii_frame)
                 sys.stdout.flush()
 
-            # Play at original speed (no sleep)
-            # To control playback speed, adjust the sleep duration
+                sys.stdout.write(f"\rFrame: {frame_counter}/{total_frames}")
+                sys.stdout.flush()
 
-            # Check for the 'q' key press to exit the loop
+                frame_counter += 1
+
             key = cv2.waitKey(1)
             if key & 0xFF == ord('q'):
                 break
             elif key == ord('p') or key == ord('P'):
-                paused = not paused  # Toggle the pause state
+                paused = not paused
 
     except KeyboardInterrupt:
         pass
@@ -82,10 +84,9 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    # Initialize OpenCV window for key capture
     cv2.namedWindow("Video to ASCII", cv2.WINDOW_NORMAL)
 
     play_video(args.video_path, loop=args.loop, jump_to_frame=args.jump)
 
-    # Destroy the OpenCV window
     cv2.destroyAllWindows()
+
