@@ -26,12 +26,13 @@ will provide a similar effect, currently only supported on Linux, audio playback
 
 If you want to add or remove UNICODE characters for the frames to be converted in, tweak this:
 
-def get_colored_ascii_char(intensity, color):
 
-    ascii_chars = "@§&%#*+=•-:. " <-- this
+    def get_colored_ascii_char(intensity, color):
+
+        ascii_chars = "@§&%#*+=•-:. " <-- this
     
-    color_code = determine_color_code(color)
+        color_code = determine_color_code(color)
     
-    return f"\033[38;2;{color[2]};{color[1]};{color[0]}m{ascii_chars[int(intensity * (len(ascii_chars) - 1))]}"
+        return f"\033[38;2;{color[2]};{color[1]};{color[0]}m{ascii_chars[int(intensity * (len(ascii_chars) - 1))]}"
 
 # Have fun :)
