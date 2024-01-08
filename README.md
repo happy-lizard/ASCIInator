@@ -18,9 +18,9 @@ python3 asciinator3  <video/image path>
 
 -j = jumps to a specified frame, example usage: python3 asciinator3.py /media/my/3/gif/1701924589071801.gif  -j 128
 
-                                                                                                             HH MM SS
-                                                                                                              |  |  |
-                                                                                                              V  V  V
+                                                                                                        HH MM SS
+                                                                                                        |  |  |
+                                                                                                        V  V  V
 
 -jt = jumps to specifed time, example usage: python3 asciinator3.py /media/my/3/gif/1701924589071801.gif  -jt 00:12:34
 
