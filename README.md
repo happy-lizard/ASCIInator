@@ -18,7 +18,9 @@ python3 asciinator3  <video/image path>
 
 -j = jumps to a specified frame, example usage: python3 asciinator3.py /media/my/3/gif/1701924589071801.gif  -j 128
 
--jt = jumps to specifed time, uses HH:MM:SS as for input format, here's example usage: python3 asciinator3.py /media/my/3/gif/1701924589071801.mp4  -jt 00:12:34
+-jt = jumps to specifed time, uses HH:MM:SS as for input format, here's example usage:
+
+python3 asciinator3.py /media/my/3/gif/1701924589071801.mp4  -jt 00:12:34
 
 You can pause the video by going into the popup window and pressing p on your keyboard, you can quit by pressing q in the same window
 
