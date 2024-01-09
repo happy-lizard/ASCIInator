@@ -33,7 +33,7 @@ If you want to add or remove UNICODE characters for the frames to be converted i
 
     def get_colored_ascii_char(intensity, color):
 
-        ascii_chars = "@§&%#*+=•-:. " <-- this
+        ascii_chars = "" <-- this
     
         color_code = determine_color_code(color)
     
