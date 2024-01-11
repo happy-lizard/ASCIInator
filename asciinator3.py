@@ -4,6 +4,8 @@ import sys
 import argparse
 import datetime
 
+#Expand edition
+
 def convert_frame_to_colored_ascii(frame):
     height, width, _ = frame.shape
     new_width = int(os.get_terminal_size().columns)
